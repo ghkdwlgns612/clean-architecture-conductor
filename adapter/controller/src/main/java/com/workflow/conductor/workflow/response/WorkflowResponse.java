@@ -1,6 +1,10 @@
 package com.workflow.conductor.workflow.response;
 
+import com.workflow.conductor.JsonParseUtil;
+import com.workflow.conductor.PropertyUtil;
 import com.workflow.conductor.domain.ConductorTask;
+import com.workflow.conductor.domain.JobProperty;
+import com.workflow.conductor.domain.Workflow;
 
 import java.util.List;
 import java.util.Map;
@@ -32,6 +36,18 @@ public class WorkflowResponse {
         this.jobProperties = jobProperties;
         this.ownerEmail = ownerEmail;
         this.timeoutSeconds = timeoutSeconds;
+    }
+
+    public static WorkflowResponse from(Workflow workflow, List<JobProperty> jobProperties) {
+        return new WorkflowResponse(
+                workflow.getId(),
+                workflow.getProjectId(),
+                workflow.getName(),
+                workflow.getDescription(),
+                JsonParseUtil.parseTasks(workflow.getJsonDefinition()),
+                PropertyUtil.parseJobProperties(jobProperties),
+                workflow.getOwnerMail(),
+                workflow.getTimeoutSeconds());
     }
 
     public long getId() {

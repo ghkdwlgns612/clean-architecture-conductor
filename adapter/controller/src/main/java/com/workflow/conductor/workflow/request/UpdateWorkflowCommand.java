@@ -1,6 +1,8 @@
 package com.workflow.conductor.workflow.request;
 
+import com.workflow.conductor.JsonParseUtil;
 import com.workflow.conductor.domain.ConductorTask;
+import com.workflow.conductor.domain.Workflow;
 
 import java.util.List;
 import java.util.Map;
@@ -15,7 +17,7 @@ public class UpdateWorkflowCommand {
     private final String ownerEmail;
     private final long timeoutSeconds;
 
-    public UpdateWorkflowCommand(
+    private UpdateWorkflowCommand(
             long id,
             long projectId,
             String name,
@@ -32,6 +34,17 @@ public class UpdateWorkflowCommand {
         this.jobProperties = jobProperties;
         this.ownerEmail = ownerEmail;
         this.timeoutSeconds = timeoutSeconds;
+    }
+
+    public Workflow toDomain() {
+        return new Workflow(
+                id,
+                projectId,
+                name,
+                description,
+                JsonParseUtil.parseStringJsonDefList(tasks),
+                ownerEmail,
+                timeoutSeconds);
     }
 
     public long getId() {

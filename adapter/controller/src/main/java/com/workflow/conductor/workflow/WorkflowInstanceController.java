@@ -12,14 +12,14 @@ import static com.workflow.conductor.RequestMappingConstants.WORKFLOW_INSTANCE;
 @RequestMapping(WORKFLOW_INSTANCE)
 class WorkflowInstanceController {
 
-    private final RunWorkflow RunWorkflow;
+    private final RunWorkflow runWorkflow;
 
     public WorkflowInstanceController(RunWorkflow runWorkflow) {
-        RunWorkflow = runWorkflow;
+        this.runWorkflow = runWorkflow;
     }
 
     @PostMapping("{workflowId}")
     long runWorkflow(@PathVariable("workflowId") long workflowId) {
-        return runWorkflowUseCase.runWorkflow(workflowId);
+        return runWorkflow.runWorkflow(workflowId);
     }
 }
