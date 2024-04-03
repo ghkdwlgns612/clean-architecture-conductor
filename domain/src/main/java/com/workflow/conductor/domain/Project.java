@@ -1,6 +1,10 @@
 package com.workflow.conductor.domain;
 
+import java.util.regex.Pattern;
+
 public class Project {
+
+    private final Pattern specialCharacterPattern = Pattern.compile("[^a-zA-Z0-9]");
 
     private Long id;
 
@@ -29,5 +33,17 @@ public class Project {
 
     public String getDescription() {
         return description;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public boolean existSpecialCharacter() {
+        return specialCharacterPattern.matcher(name).find();
+    }
+
+    public boolean existId() {
+        return id == null;
     }
 }

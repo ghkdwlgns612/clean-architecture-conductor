@@ -59,8 +59,8 @@ class WorkflowController {
     }
 
     @PutMapping
-    void updateWorkflow(@RequestBody UpdateWorkflowCommand command) {
-        updateWorkflow.updateWorkflow(command.toDomain());
+    long updateWorkflow(@RequestBody UpdateWorkflowCommand command) {
+        return updateWorkflow.updateWorkflow(command.toDomain());
     }
 
     @DeleteMapping("{id}")

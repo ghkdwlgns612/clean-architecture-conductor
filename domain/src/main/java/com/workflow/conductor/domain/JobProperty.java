@@ -4,6 +4,8 @@ public class JobProperty {
 
     private Long id;
 
+    private Long workflowId;
+
     private String name;
 
     private String value;

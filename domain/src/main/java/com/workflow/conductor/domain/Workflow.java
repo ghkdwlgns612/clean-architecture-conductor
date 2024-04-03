@@ -1,8 +1,11 @@
 package com.workflow.conductor.domain;
 
 import java.time.LocalDateTime;
+import java.util.regex.Pattern;
 
 public class Workflow {
+
+    private final Pattern specialCharacterPattern = Pattern.compile("[^a-zA-Z0-9]");
 
     private long id;
 
@@ -100,5 +103,17 @@ public class Workflow {
 
     public LocalDateTime getModifiedTime() {
         return modifiedTime;
+    }
+
+    public boolean existSpecialCharacter() {
+        return specialCharacterPattern.matcher(name).find();
+    }
+
+    public boolean existId() {
+        return this.id == 0;
+    }
+
+    public boolean equalProject(long projectId) {
+        return this.projectId == projectId;
     }
 }

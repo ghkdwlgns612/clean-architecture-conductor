@@ -1,6 +1,10 @@
 package com.workflow.conductor.domain;
 
+import java.util.regex.Pattern;
+
 public class GlobalProperty {
+
+    private final Pattern specialCharacterPattern = Pattern.compile("[^a-zA-Z0-9]");
 
     private Long id;
 
@@ -29,5 +33,18 @@ public class GlobalProperty {
 
     public String getValue() {
         return value;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public boolean existSpecialCharacter() {
+        return specialCharacterPattern.matcher(name).find()
+                || specialCharacterPattern.matcher(value).find();
+    }
+
+    public boolean existId() {
+        return id == null;
     }
 }

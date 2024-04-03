@@ -2,7 +2,8 @@ rootProject.name = 'conductor'
 
 include 'adapter'
 include 'adapter:controller'
-include 'adapter:repository'
+include 'adapter:mysql'
+include 'adapter:in-memory'
 
 include 'application'
 include 'application:spring-boot-app'
