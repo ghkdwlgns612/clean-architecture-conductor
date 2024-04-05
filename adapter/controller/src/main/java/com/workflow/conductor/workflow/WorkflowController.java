@@ -10,16 +10,10 @@ import com.workflow.conductor.usecase.workflow.UpdateWorkflow;
 import com.workflow.conductor.workflow.request.CreateWorkflowCommand;
 import com.workflow.conductor.workflow.request.UpdateWorkflowCommand;
 import com.workflow.conductor.workflow.response.WorkflowResponse;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static com.workflow.conductor.RequestMappingConstants.WORKFLOW;
-
-@RestController
-@RequestMapping(WORKFLOW)
-class WorkflowController {
+public class WorkflowController {
 
     private final FindWorkflow findWorkflow;
     private final FindJobProperty findJobProperty;
@@ -27,7 +21,6 @@ class WorkflowController {
     private final UpdateWorkflow updateWorkflow;
     private final DeleteWorkflow deleteWorkflow;
 
-    @Autowired
     public WorkflowController(FindWorkflow findWorkflow, FindJobProperty findJobProperty, CreateWorkflow createWorkflow, UpdateWorkflow updateWorkflow, DeleteWorkflow deleteWorkflow) {
         this.findWorkflow = findWorkflow;
         this.findJobProperty = findJobProperty;
@@ -36,15 +29,13 @@ class WorkflowController {
         this.deleteWorkflow = deleteWorkflow;
     }
 
-    @GetMapping("{id}")
-    WorkflowResponse getWorkflow(@PathVariable("id") long workflowId) {
+    public WorkflowResponse getWorkflow(long workflowId) {
         Workflow workflow = findWorkflow.getWorkflow(workflowId);
         List<JobProperty> jobProperties = findJobProperty.getJobPropertiesInWorkflow(workflowId);
         return WorkflowResponse.from(workflow, jobProperties);
     }
 
-    @GetMapping("project/{id}")
-    List<WorkflowResponse> getWorkflowInProject(@PathVariable("id") long projectId) {
+    public List<WorkflowResponse> getWorkflowInProject(long projectId) {
         List<Workflow> workflows = findWorkflow.getWorkflowsInProject(projectId);
         return workflows.stream()
                 .map(workflow -> {
@@ -53,18 +44,15 @@ class WorkflowController {
                 }).toList();
     }
 
-    @PostMapping
-    long createWorkflow(@RequestBody CreateWorkflowCommand command) {
+    public long createWorkflow(CreateWorkflowCommand command) {
         return createWorkflow.createWorkflow(command.toDomain());
     }
 
-    @PutMapping
-    long updateWorkflow(@RequestBody UpdateWorkflowCommand command) {
+    public long updateWorkflow(UpdateWorkflowCommand command) {
         return updateWorkflow.updateWorkflow(command.toDomain());
     }
 
-    @DeleteMapping("{id}")
-    void deleteWorkflow(@PathVariable("id") long id) {
+    public void deleteWorkflow(long id) {
         deleteWorkflow.deleteWorkflow(id);
     }
 }

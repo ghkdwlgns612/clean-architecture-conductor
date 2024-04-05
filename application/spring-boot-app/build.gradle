@@ -1,25 +1,13 @@
-plugins {
-    id 'java'
-    id 'org.springframework.boot' version '3.2.4'
-    id 'io.spring.dependency-management' version '1.1.4'
-}
-
-group = 'com.workflow'
-version = '0.0.1-SNAPSHOT'
-
-java {
-    sourceCompatibility = '21'
-}
-
-repositories {
-    mavenCentral()
-}
-
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-}
+    // in
+    implementation project(':adapter:controller')
 
-tasks.named('test') {
-    useJUnitPlatform()
+    // out
+    implementation project(':adapter:in-memory')
+    implementation project(':adapter:mysql')
+
+    // domain
+    implementation project(':usecase')
+
+    implementation 'org.springframework.boot:spring-boot-starter-web'
 }

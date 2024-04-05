@@ -4,11 +4,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.workflow.conductor.domain.ConductorTask;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Component
 public class JsonParseUtil {
 
     private static final ObjectMapper objectMapper = new ObjectMapper();
