@@ -7,11 +7,11 @@ import java.util.List;
 public interface JobPropertyRepository {
     List<JobProperty> findAllByWorkflowId(long workflowId);
 
-    void save(JobProperty globalProperty);
+    void save(JobProperty jobProperty);
 
-    void saveAll(List<JobProperty> globalProperties);
+    void saveAll(List<JobProperty> jobProperties);
 
-    void update(JobProperty globalProperty);
+    void update(JobProperty jobProperty);
 
     void deleteById(long id);
 

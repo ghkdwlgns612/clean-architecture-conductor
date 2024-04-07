@@ -5,6 +5,7 @@ import com.workflow.conductor.usecase.globalprop.port.GlobalPropertyRepository;
 
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
@@ -35,6 +36,11 @@ public class InMemoryGlobalPropertyRepository implements GlobalPropertyRepositor
 
     @Override
     public void update(GlobalProperty globalProperty) {
+        GlobalProperty dbGlobalProperty = inMemoryDb.get(globalProperty.getId());
+        if (dbGlobalProperty == null) {
+            throw new NoSuchElementException();
+        }
+
         inMemoryDb.put(globalProperty.getId(), globalProperty);
     }
 

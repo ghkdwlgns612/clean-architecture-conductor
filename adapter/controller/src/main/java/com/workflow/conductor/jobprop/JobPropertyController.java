@@ -1,11 +1,13 @@
 package com.workflow.conductor.jobprop;
 
 import com.workflow.conductor.PropertyUtil;
+import com.workflow.conductor.domain.JobProperty;
 import com.workflow.conductor.usecase.jobprop.CreateJobProperty;
 import com.workflow.conductor.usecase.jobprop.DeleteJobProperty;
 import com.workflow.conductor.usecase.jobprop.FindJobProperty;
 import com.workflow.conductor.usecase.jobprop.UpdateJobProperty;
 
+import java.util.List;
 import java.util.Map;
 
 public class JobPropertyController {
@@ -35,6 +37,6 @@ public class JobPropertyController {
     }
 
     public void deleteProperty(long workflowId, Map<String, Object> jobProperties) {
-        deleteJobProperty.deleteJobProperty(workflowId, jobProperties);
+        deleteJobProperty.deleteJobProperty(workflowId, PropertyUtil.parseMapToJobProperties(jobProperties));
     }
 }

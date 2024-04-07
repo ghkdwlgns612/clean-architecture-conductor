@@ -14,6 +14,7 @@ public class UpdateJobProperty {
     }
 
     public void updateProperties(long workflowId, List<JobProperty> jobProperties) {
-
+        jobPropertyRepository.deleteByWorkflowId(workflowId);
+        jobPropertyRepository.saveAll(jobProperties);
     }
 }

@@ -14,6 +14,6 @@ public class CreateJobProperty {
     }
 
     public void createJobProperties(List<JobProperty> jobProperties) {
-
+        jobPropertyRepository.saveAll(jobProperties);
     }
 }

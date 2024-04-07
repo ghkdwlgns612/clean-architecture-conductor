@@ -5,6 +5,7 @@ import com.workflow.conductor.usecase.project.port.ProjectRepository;
 
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
@@ -37,6 +38,10 @@ public class InMemoryProjectRepository implements ProjectRepository {
     @Override
     public long update(Project project) {
         Long id = project.getId();
+        Project dbProject = inMemoryDb.get(id);
+        if (dbProject == null) {
+            throw new NoSuchElementException();
+        }
         inMemoryDb.put(id, project);
         return id;
     }

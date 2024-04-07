@@ -45,6 +45,6 @@ public class GlobalProperty {
     }
 
     public boolean existId() {
-        return id == null;
+        return id != null;
     }
 }

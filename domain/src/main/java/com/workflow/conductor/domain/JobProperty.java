@@ -19,11 +19,19 @@ public class JobProperty {
         return id;
     }
 
+    public Long getWorkflowId() {
+        return workflowId;
+    }
+
     public String getName() {
         return name;
     }
 
     public String getValue() {
         return value;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }
