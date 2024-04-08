@@ -5,6 +5,7 @@ import com.workflow.conductor.usecase.workflow.port.WorkflowRepository;
 
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
@@ -37,6 +38,11 @@ public class InMemoryWorkflowRepository implements WorkflowRepository {
     @Override
     public long update(Workflow workflow) {
         long id = workflow.getId();
+        Workflow dbWorkflow = inMemoryDb.get(id);
+        if (dbWorkflow == null) {
+            throw new NoSuchElementException();
+        }
+
         inMemoryDb.put(id, workflow);
         return id;
     }

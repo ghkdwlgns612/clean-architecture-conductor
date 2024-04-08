@@ -1,6 +1,6 @@
 dependencies {
-	implementation project(':domain')
-	implementation project(':usecase')
+    implementation project(':domain')
+    implementation project(':usecase')
 
-	runtimeOnly 'com.mysql:mysql-connector-j'
+    implementation 'mysql:mysql-connector-java:8.0.33'
 }

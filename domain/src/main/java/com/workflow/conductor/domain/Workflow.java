@@ -110,7 +110,7 @@ public class Workflow {
     }
 
     public boolean existId() {
-        return this.id == 0;
+        return this.id != 0;
     }
 
     public boolean equalProject(long projectId) {
