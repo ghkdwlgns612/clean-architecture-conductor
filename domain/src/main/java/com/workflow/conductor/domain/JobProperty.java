@@ -15,6 +15,13 @@ public class JobProperty {
         this.value = value;
     }
 
+    public JobProperty(Long id, Long workflowId, String name, String value) {
+        this.id = id;
+        this.workflowId = workflowId;
+        this.name = name;
+        this.value = value;
+    }
+
     public Long getId() {
         return id;
     }
