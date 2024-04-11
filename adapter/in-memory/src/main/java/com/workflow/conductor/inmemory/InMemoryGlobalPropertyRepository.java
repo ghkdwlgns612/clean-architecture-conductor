@@ -48,4 +48,10 @@ public class InMemoryGlobalPropertyRepository implements GlobalPropertyRepositor
     public void deleteById(long id) {
         inMemoryDb.remove(id);
     }
+
+    @Override
+    public void deleteAll() {
+        inMemoryDb.keySet()
+                .forEach(inMemoryDb::remove);
+    }
 }

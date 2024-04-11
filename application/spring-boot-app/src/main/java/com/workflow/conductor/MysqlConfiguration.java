@@ -30,14 +30,16 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import static com.workflow.conductor.MysqlConnection.*;
+
 @Configuration
 @ConditionalOnProperty(value = "adapter.out.repository.type", havingValue = "MYSQL")
 public class MysqlConfiguration {
 
-    private final GlobalPropertyRepository globalPropertyRepository = new MysqlGlobalPropertyRepository();
-    private final ProjectRepository projectRepository = new MysqlProjectPropertyRepository();
-    private final JobPropertyRepository jobPropertyRepository = new MysqlJobPropertyRepository();
-    private final WorkflowRepository workflowRepository = new MysqlWorkflowRepository();
+    private final GlobalPropertyRepository globalPropertyRepository = new MysqlGlobalPropertyRepository(url, username, password);
+    private final ProjectRepository projectRepository = new MysqlProjectPropertyRepository(url, username, password);
+    private final JobPropertyRepository jobPropertyRepository = new MysqlJobPropertyRepository(url, username, password);
+    private final WorkflowRepository workflowRepository = new MysqlWorkflowRepository(url, username, password);
 
     /**
      * Controller Bean

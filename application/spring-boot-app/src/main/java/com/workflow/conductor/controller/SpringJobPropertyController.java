@@ -1,4 +1,4 @@
-package com.workflow.conductor;
+package com.workflow.conductor.controller;
 
 import com.workflow.conductor.jobprop.JobPropertyController;
 import org.springframework.web.bind.annotation.*;

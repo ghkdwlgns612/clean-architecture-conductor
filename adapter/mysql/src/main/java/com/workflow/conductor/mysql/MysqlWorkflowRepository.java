@@ -10,9 +10,19 @@ import java.util.Optional;
 
 public class MysqlWorkflowRepository implements WorkflowRepository {
 
+    private final String URL;
+    private final String USERNAME;
+    private final String PASSWORD;
+
+    public MysqlWorkflowRepository(String URL, String USERNAME, String PASSWORD) {
+        this.URL = URL;
+        this.USERNAME = USERNAME;
+        this.PASSWORD = PASSWORD;
+    }
+
     @Override
     public Optional<Workflow> findById(long workflowId) {
-        try (Connection connection = ConnectionStore.getConnection()) {
+        try (Connection connection = DriverManager.getConnection(URL + "?user=" + USERNAME + "&password=" + PASSWORD)) {
             String sql = "SELECT * FROM WORKFLOW WHERE id=?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setLong(1, workflowId);
@@ -37,7 +47,7 @@ public class MysqlWorkflowRepository implements WorkflowRepository {
 
     @Override
     public List<Workflow> findAllByProjectId(long projectId) {
-        try (Connection connection = ConnectionStore.getConnection()) {
+        try (Connection connection = DriverManager.getConnection(URL + "?user=" + USERNAME + "&password=" + PASSWORD)) {
             String sql = "SELECT * FROM WORKFLOW WHERE project_id=?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setLong(1, projectId);
@@ -65,7 +75,7 @@ public class MysqlWorkflowRepository implements WorkflowRepository {
 
     @Override
     public long save(Workflow workflow) {
-        try (Connection connection = ConnectionStore.getConnection()) {
+        try (Connection connection = DriverManager.getConnection(URL + "?user=" + USERNAME + "&password=" + PASSWORD)) {
             String sql = "INSERT INTO WORKFLOW (create_time, description, json_definition, modified_time, name, owner_mail, timeout_seconds, project_id) " +
                     "VALUE (?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement statement = connection.prepareStatement(sql);
@@ -89,7 +99,7 @@ public class MysqlWorkflowRepository implements WorkflowRepository {
 
     @Override
     public long update(Workflow workflow) {
-        try (Connection connection = ConnectionStore.getConnection()) {
+        try (Connection connection = DriverManager.getConnection(URL + "?user=" + USERNAME + "&password=" + PASSWORD)) {
             String sql = "UPDATE WORKFLOW SET " +
                     "description=?, json_definition=?, modified_time=?, name=?, owner_mail=?, timeout_seconds=?, project_id=? " +
                     "WHERE id=?";
@@ -112,7 +122,7 @@ public class MysqlWorkflowRepository implements WorkflowRepository {
 
     @Override
     public void deleteById(long workflowId) {
-        try (Connection connection = ConnectionStore.getConnection()) {
+        try (Connection connection = DriverManager.getConnection(URL + "?user=" + USERNAME + "&password=" + PASSWORD)) {
             String sql = "DELETE FROM WORKFLOW WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setLong(1, workflowId);

@@ -16,4 +16,6 @@ public interface GlobalPropertyRepository {
     void update(GlobalProperty globalProperty);
 
     void deleteById(long id);
+
+    void deleteAll();
 }

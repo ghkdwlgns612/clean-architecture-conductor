@@ -3,4 +3,7 @@ dependencies {
     implementation project(':usecase')
 
     implementation 'mysql:mysql-connector-java:8.0.33'
+
+    testImplementation 'org.testcontainers:mysql'
+    testImplementation 'org.testcontainers:junit-jupiter'
 }

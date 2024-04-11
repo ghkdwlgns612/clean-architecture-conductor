@@ -1,4 +1,4 @@
-package com.workflow.conductor;
+package com.workflow.conductor.controller;
 
 import com.workflow.conductor.globalprop.GlobalPropertyController;
 import com.workflow.conductor.globalprop.request.CreateGlobalPropertyCommand;

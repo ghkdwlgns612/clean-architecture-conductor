@@ -3,18 +3,25 @@ package com.workflow.conductor.mysql;
 import com.workflow.conductor.domain.JobProperty;
 import com.workflow.conductor.usecase.jobprop.port.JobPropertyRepository;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MysqlJobPropertyRepository implements JobPropertyRepository {
 
+    private final String URL;
+    private final String USERNAME;
+    private final String PASSWORD;
+
+    public MysqlJobPropertyRepository(String URL, String USERNAME, String PASSWORD) {
+        this.URL = URL;
+        this.USERNAME = USERNAME;
+        this.PASSWORD = PASSWORD;
+    }
+
     @Override
     public List<JobProperty> findAllByWorkflowId(long workflowId) {
-        try (Connection connection = ConnectionStore.getConnection()) {
+        try (Connection connection = DriverManager.getConnection(URL + "?user=" + USERNAME + "&password=" + PASSWORD)) {
             String sql = "SELECT * FROM JOB_PROPERTY WHERE workflow_id=?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setLong(1, workflowId);
@@ -37,7 +44,7 @@ public class MysqlJobPropertyRepository implements JobPropertyRepository {
 
     @Override
     public void save(JobProperty jobProperty) {
-        try (Connection connection = ConnectionStore.getConnection()) {
+        try (Connection connection = DriverManager.getConnection(URL + "?user=" + USERNAME + "&password=" + PASSWORD)) {
             String sql = "INSERT INTO JOB_PROPERTY (name, value, workflow_id) VALUE (?, ?, ?)";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, jobProperty.getName());
@@ -57,7 +64,7 @@ public class MysqlJobPropertyRepository implements JobPropertyRepository {
 
     @Override
     public void update(JobProperty jobProperty) {
-        try (Connection connection = ConnectionStore.getConnection()) {
+        try (Connection connection = DriverManager.getConnection(URL + "?user=" + USERNAME + "&password=" + PASSWORD)) {
             String sql = "UPDATE JOB_PROPERTY SET name=?, value=? WHERE id=?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, jobProperty.getName());
@@ -71,7 +78,7 @@ public class MysqlJobPropertyRepository implements JobPropertyRepository {
 
     @Override
     public void deleteById(long id) {
-        try (Connection connection = ConnectionStore.getConnection()) {
+        try (Connection connection = DriverManager.getConnection(URL + "?user=" + USERNAME + "&password=" + PASSWORD)) {
             String sql = "DELETE FROM JOB_PROPERTY WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setLong(1, id);
@@ -83,7 +90,7 @@ public class MysqlJobPropertyRepository implements JobPropertyRepository {
 
     @Override
     public void deleteByWorkflowId(long workflowId) {
-        try (Connection connection = ConnectionStore.getConnection()) {
+        try (Connection connection = DriverManager.getConnection(URL + "?user=" + USERNAME + "&password=" + PASSWORD)) {
             String sql = "DELETE FROM JOB_PROPERTY WHERE workflow_id = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setLong(1, workflowId);
